@@ -1,0 +1,18 @@
+{
+  "id": "corpus-002",
+  "description": "Signal 1: assistant reads a different file — B_AUTH not referenced",
+  "detection_blocks": [
+    { "id": "B_AUTH", "file_path": "src/auth.py", "content": "def login(): pass" },
+    { "id": "B_DB", "file_path": "src/db.py", "content": "class DB: pass" }
+  ],
+  "assistant_message": {
+    "role": "assistant",
+    "content": [
+      { "type": "tool_use", "id": "t1", "name": "Read", "input": { "file_path": "src/db.py" } }
+    ]
+  },
+  "ground_truth": {
+    "referenced_block_ids": ["B_DB"],
+    "unreferenced_block_ids": ["B_AUTH"]
+  }
+}

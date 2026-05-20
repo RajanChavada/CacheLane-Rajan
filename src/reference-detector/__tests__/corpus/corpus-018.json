@@ -1,0 +1,21 @@
+{
+  "id": "corpus-018",
+  "description": "Mixed: 4 blocks; 2 referenced (S1, S3), 2 not",
+  "detection_blocks": [
+    { "id": "B_REF_S1", "file_path": "src/db.py", "content": "class DB: pass" },
+    { "id": "B_REF_S3", "file_path": null, "content": "function authenticateUser(username, password) { return verify(username, hash(password)); }" },
+    { "id": "B_QUIET_1", "file_path": "src/logger.py", "content": "import logging" },
+    { "id": "B_QUIET_2", "file_path": null, "content": "test runner output: 5 passed" }
+  ],
+  "assistant_message": {
+    "role": "assistant",
+    "content": [
+      { "type": "tool_use", "id": "t1", "name": "Read", "input": { "file_path": "src/db.py" } },
+      { "type": "text", "text": "The database module looks good. Also noted: function authenticateUser(username, password) { return v" }
+    ]
+  },
+  "ground_truth": {
+    "referenced_block_ids": ["B_REF_S1", "B_REF_S3"],
+    "unreferenced_block_ids": ["B_QUIET_1", "B_QUIET_2"]
+  }
+}

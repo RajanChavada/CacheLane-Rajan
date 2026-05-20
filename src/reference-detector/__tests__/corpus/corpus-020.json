@@ -1,0 +1,19 @@
+{
+  "id": "corpus-020",
+  "description": "Signal 1 + Signal 2 in the same turn: two blocks matched by different signals",
+  "detection_blocks": [
+    { "id": "B_FILE", "file_path": "src/index.ts", "content": "export default app" },
+    { "id": "01JBLOCK_CITED", "file_path": null, "content": "some content from a previous tool result" }
+  ],
+  "assistant_message": {
+    "role": "assistant",
+    "content": [
+      { "type": "tool_use", "id": "t1", "name": "Read", "input": { "file_path": "src/index.ts" } },
+      { "type": "text", "text": "As shown in 01JBLOCK_CITED, the pattern is clear." }
+    ]
+  },
+  "ground_truth": {
+    "referenced_block_ids": ["B_FILE", "01JBLOCK_CITED"],
+    "unreferenced_block_ids": []
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": "corpus-008",
+  "description": "Edge: no tracked blocks — result is empty",
+  "detection_blocks": [],
+  "assistant_message": {
+    "role": "assistant",
+    "content": [{ "type": "text", "text": "Hello! How can I help?" }]
+  },
+  "ground_truth": {
+    "referenced_block_ids": [],
+    "unreferenced_block_ids": []
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "id": "corpus-010",
+  "description": "Eval order: block matched by Signal 1 must not appear twice (S3 would also match)",
+  "detection_blocks": [
+    {
+      "id": "B1",
+      "file_path": "src/auth.py",
+      "content": "function authenticateUser(username, password) { return verify(username, hash(password)); }"
+    }
+  ],
+  "assistant_message": {
+    "role": "assistant",
+    "content": [
+      { "type": "tool_use", "id": "t1", "name": "Read", "input": { "file_path": "src/auth.py" } },
+      { "type": "text", "text": "function authenticateUser(username, password) { return" }
+    ]
+  },
+  "ground_truth": {
+    "referenced_block_ids": ["B1"],
+    "unreferenced_block_ids": []
+  }
+}

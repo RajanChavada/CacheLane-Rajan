@@ -1,0 +1,21 @@
+{
+  "id": "corpus-006",
+  "description": "Signal 3: assistant quotes a 40-char substring from block content",
+  "detection_blocks": [
+    {
+      "id": "B_CODE",
+      "file_path": null,
+      "content": "function authenticateUser(username, password) { return verify(username, hash(password)); }"
+    }
+  ],
+  "assistant_message": {
+    "role": "assistant",
+    "content": [
+      { "type": "text", "text": "The auth function starts: function authenticateUser(username, passw" }
+    ]
+  },
+  "ground_truth": {
+    "referenced_block_ids": ["B_CODE"],
+    "unreferenced_block_ids": []
+  }
+}

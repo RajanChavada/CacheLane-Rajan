@@ -142,6 +142,8 @@ export interface CachelaneDb extends Database.Database {
   getPrunableBlocks(params: GetPrunableBlocksParams): BlockRow[];
   getBlocksByIdPrefix(params: GetBlocksByIdPrefixParams): BlockRow[];
   incrementUnusedTurns(id: string, updatedAt: number): void;
+  resetUnusedTurns(id: string, lastReferencedAtTurn: number, updatedAt: number): void;
+  getBlocksBySession(workspaceId: string, sessionId: string): BlockRow[];
   markStub(
     id: string,
     refetchHandle: string,
@@ -250,6 +252,14 @@ export function openDatabase(dbPath: string): CachelaneDb {
 
   const incrementUnusedTurnsStmt = rawDb.prepare(
     "UPDATE blocks SET unused_turns = unused_turns + 1, updated_at = ? WHERE id = ?"
+  );
+
+  const resetUnusedTurnsStmt = rawDb.prepare(
+    "UPDATE blocks SET unused_turns = 0, last_referenced_at_turn = ?, updated_at = ? WHERE id = ?"
+  );
+
+  const getBlocksBySessionStmt = rawDb.prepare(
+    "SELECT * FROM blocks WHERE workspace_id = ? AND session_id = ?"
   );
 
   const markStubStmt = rawDb.prepare(
@@ -371,6 +381,12 @@ export function openDatabase(dbPath: string): CachelaneDb {
 
   db.incrementUnusedTurns = (id: string, updatedAt: number) =>
     void incrementUnusedTurnsStmt.run(updatedAt, id);
+
+  db.resetUnusedTurns = (id: string, lastReferencedAtTurn: number, updatedAt: number) =>
+    void resetUnusedTurnsStmt.run(lastReferencedAtTurn, updatedAt, id);
+
+  db.getBlocksBySession = (workspaceId: string, sessionId: string) =>
+    getBlocksBySessionStmt.all(workspaceId, sessionId) as BlockRow[];
 
   db.markStub = (
     id: string,
