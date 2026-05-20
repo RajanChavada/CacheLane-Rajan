@@ -5,3 +5,10 @@ dist/
 .env
 .env.local
 coverage/
+
+# Real-session corpus fixtures — local only, never commit to remote.
+# Generate with: node scripts/extract-corpus.mjs
+# (corpus-001..020 are synthetic and are committed; everything above is local-only)
+src/reference-detector/__tests__/corpus/corpus-02[1-9].json
+src/reference-detector/__tests__/corpus/corpus-0[3-9][0-9].json
+src/reference-detector/__tests__/corpus/corpus-100.json

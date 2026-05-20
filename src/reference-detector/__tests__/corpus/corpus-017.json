@@ -1,0 +1,24 @@
+{
+  "id": "corpus-017",
+  "description": "All three signals fire in one turn: three blocks, each matched by a different signal",
+  "detection_blocks": [
+    { "id": "B_S1", "file_path": "src/auth.py", "content": "def login(): pass" },
+    { "id": "01JBLOCK_S2", "file_path": null, "content": "short content only" },
+    {
+      "id": "B_S3",
+      "file_path": null,
+      "content": "function authenticateUser(username, password) { return verify(username, hash(password)); }"
+    }
+  ],
+  "assistant_message": {
+    "role": "assistant",
+    "content": [
+      { "type": "tool_use", "id": "t1", "name": "Read", "input": { "file_path": "src/auth.py" } },
+      { "type": "text", "text": "Referenced 01JBLOCK_S2 and: function authenticateUser(username, password) { return v" }
+    ]
+  },
+  "ground_truth": {
+    "referenced_block_ids": ["B_S1", "01JBLOCK_S2", "B_S3"],
+    "unreferenced_block_ids": []
+  }
+}

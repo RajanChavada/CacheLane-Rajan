@@ -1,0 +1,21 @@
+{
+  "id": "corpus-007",
+  "description": "Signal 3: no 40-char shingle overlap — block not referenced",
+  "detection_blocks": [
+    {
+      "id": "B_CODE",
+      "file_path": null,
+      "content": "function authenticateUser(username, password) { return verify(username, hash(password)); }"
+    }
+  ],
+  "assistant_message": {
+    "role": "assistant",
+    "content": [
+      { "type": "text", "text": "I will now work on the database layer without reading auth code." }
+    ]
+  },
+  "ground_truth": {
+    "referenced_block_ids": [],
+    "unreferenced_block_ids": ["B_CODE"]
+  }
+}

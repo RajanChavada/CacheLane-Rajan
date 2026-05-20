@@ -1,0 +1,15 @@
+{
+  "id": "corpus-009",
+  "description": "Edge: assistant message has no content blocks — nothing matched",
+  "detection_blocks": [
+    { "id": "B1", "file_path": "src/auth.py", "content": "def login(): pass" }
+  ],
+  "assistant_message": {
+    "role": "assistant",
+    "content": []
+  },
+  "ground_truth": {
+    "referenced_block_ids": [],
+    "unreferenced_block_ids": ["B1"]
+  }
+}

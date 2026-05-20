@@ -1,0 +1,22 @@
+{
+  "id": "corpus-005",
+  "description": "Signal 2: assistant calls cachelane:expand with block ID",
+  "detection_blocks": [
+    { "id": "01JBLOCK000002", "file_path": null, "content": "large search result content here" }
+  ],
+  "assistant_message": {
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "t1",
+        "name": "cachelane:expand",
+        "input": { "block_id": "01JBLOCK000002" }
+      }
+    ]
+  },
+  "ground_truth": {
+    "referenced_block_ids": ["01JBLOCK000002"],
+    "unreferenced_block_ids": []
+  }
+}

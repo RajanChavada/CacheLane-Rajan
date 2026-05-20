@@ -1,0 +1,21 @@
+{
+  "id": "corpus-015",
+  "description": "Signal 3 edge: block content is exactly 40 chars — one shingle, must match",
+  "detection_blocks": [
+    {
+      "id": "B_EXACT40",
+      "file_path": null,
+      "content": "Error: undefined is not a function (42) "
+    }
+  ],
+  "assistant_message": {
+    "role": "assistant",
+    "content": [
+      { "type": "text", "text": "The error was: Error: undefined is not a function (42) " }
+    ]
+  },
+  "ground_truth": {
+    "referenced_block_ids": ["B_EXACT40"],
+    "unreferenced_block_ids": []
+  }
+}
