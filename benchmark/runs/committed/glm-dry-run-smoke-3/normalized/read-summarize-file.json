@@ -1,0 +1,22 @@
+{
+  "session_id": "glm-dry-run-smoke-3-read-summarize-file",
+  "provider": "glm",
+  "scenario_id": "read-summarize-file",
+  "source": {},
+  "turns": [
+    {
+      "turn_number": 0,
+      "assistant_text": "Dry run only. Planned GLM request for read-summarize-file.",
+      "tool_calls": [],
+      "blocks_in_prompt": [
+        {
+          "id": "e4b1f5c7d98d63a7ee4008ca4a0c5c99c9bd9aced6a5e3ee8e82464422ed0164",
+          "id_token": "e4b1f5c7",
+          "kind": "file_read",
+          "file_path": "src/cache-policy.ts",
+          "content": "export function ttlForPrefix(kind: 'ephemeral_5m' | 'ephemeral_1h'): number { return kind === 'ephemeral_1h' ? 3600 : 300; } The keepalive worker should avoid refreshing one hour prefixes unless the policy explicitly enables it."
+        }
+      ]
+    }
+  ]
+}

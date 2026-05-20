@@ -5,6 +5,13 @@ dist/
 .env
 .env.local
 coverage/
+.claude/
+
+# Generated agent trace runs are local by default.
+# Curated/sanitized benchmark data can be committed under benchmark/runs/committed/.
+benchmark/runs/*
+!benchmark/runs/committed/
+!benchmark/runs/committed/**
 
 # Real-session corpus fixtures — local only, never commit to remote.
 # Generate with: node scripts/extract-corpus.mjs

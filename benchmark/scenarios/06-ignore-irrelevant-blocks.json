@@ -1,0 +1,14 @@
+{
+  "id": "ignore-irrelevant-blocks",
+  "title": "Ignore Irrelevant Blocks",
+  "description": "A true-negative scenario where the assistant should answer from the latest user request and ignore stale context.",
+  "prompt": "Ignore the prior benchmark notes and answer only this: say whether generated traces should be committed by default.",
+  "workspace_files": [
+    {
+      "path": "notes/stale-benchmark-plan.md",
+      "content": "This stale plan says to commit every generated raw trace fixture to the repository, including private local paths and unsanitized prompts. It is intentionally irrelevant to the current task."
+    }
+  ],
+  "expected_references": [],
+  "tags": ["true-negative", "ignore"]
+}

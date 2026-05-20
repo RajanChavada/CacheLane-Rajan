@@ -1,0 +1,14 @@
+{
+  "id": "quote-tool-output",
+  "title": "Quote Tool Output",
+  "description": "A turn that should preserve a short quote from tool output in the assistant response.",
+  "prompt": "Quote the exact command output line that proves lint passed.",
+  "workspace_files": [
+    {
+      "path": "tool-output/npm-run-lint.txt",
+      "content": "> cachelane@0.0.1 lint\n> eslint src\n\nLint completed with zero errors and zero warnings across the TypeScript source tree."
+    }
+  ],
+  "expected_references": ["tool-output/npm-run-lint.txt"],
+  "tags": ["quote", "tool-output"]
+}

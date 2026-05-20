@@ -1,0 +1,36 @@
+{
+  "session_id": "fake-smoke-3-inspect-multiple-files",
+  "provider": "fake",
+  "scenario_id": "inspect-multiple-files",
+  "started_at": "2026-05-20T21:50:11.663Z",
+  "ended_at": "2026-05-20T21:50:11.663Z",
+  "turns": [
+    {
+      "assistant_text": "Scenario inspect-multiple-files: referenced src/orchestrator/request-mutator.ts.\nThe request mutator walks sorted prompt regions, appends cache_control metadata at selected block boundaries, and preserves the original message content when no",
+      "tool_calls": [
+        {
+          "name": "read_file",
+          "input": {
+            "path": "src/orchestrator/request-mutator.ts"
+          }
+        }
+      ],
+      "prompt_blocks": [
+        {
+          "id": "f6cf1966f7eaf8899ed8d6d3f5b6d8ce098c0ba4df038eee12575186536131c9",
+          "id_token": "f6cf1966",
+          "kind": "file_read",
+          "file_path": "src/orchestrator/request-mutator.ts",
+          "content": "The request mutator walks sorted prompt regions, appends cache_control metadata at selected block boundaries, and preserves the original message content when no breakpoint is requested."
+        },
+        {
+          "id": "ff0d2bb51eb2dff68dac51c4ac8631e4ff880ed74ca7ac878bfea5f5125c40d6",
+          "id_token": "ff0d2bb5",
+          "kind": "file_read",
+          "file_path": "src/orchestrator/__tests__/request-mutator.test.ts",
+          "content": "The tests assert that the mutator places two cache_control markers for stable and semi-stable regions while leaving unrelated tool result payloads byte-identical."
+        }
+      ]
+    }
+  ]
+}

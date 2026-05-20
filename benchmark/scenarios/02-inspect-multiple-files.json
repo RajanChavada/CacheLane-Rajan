@@ -1,0 +1,21 @@
+{
+  "id": "inspect-multiple-files",
+  "title": "Inspect Multiple Files",
+  "description": "A multi-file inspection should reference both implementation and test context.",
+  "prompt": "Inspect src/orchestrator/request-mutator.ts and its test, then explain how cache_control breakpoints are asserted.",
+  "workspace_files": [
+    {
+      "path": "src/orchestrator/request-mutator.ts",
+      "content": "The request mutator walks sorted prompt regions, appends cache_control metadata at selected block boundaries, and preserves the original message content when no breakpoint is requested."
+    },
+    {
+      "path": "src/orchestrator/__tests__/request-mutator.test.ts",
+      "content": "The tests assert that the mutator places two cache_control markers for stable and semi-stable regions while leaving unrelated tool result payloads byte-identical."
+    }
+  ],
+  "expected_references": [
+    "src/orchestrator/request-mutator.ts",
+    "src/orchestrator/__tests__/request-mutator.test.ts"
+  ],
+  "tags": ["inspect", "multi-file"]
+}

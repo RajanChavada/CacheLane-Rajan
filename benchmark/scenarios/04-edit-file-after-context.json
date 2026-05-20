@@ -1,0 +1,14 @@
+{
+  "id": "edit-file-after-context",
+  "title": "Edit File After Context",
+  "description": "A trace where the assistant reads context before proposing a targeted edit.",
+  "prompt": "Update src/keepalive/index.ts so adaptive policy skips one hour prefixes unless forced.",
+  "workspace_files": [
+    {
+      "path": "src/keepalive/index.ts",
+      "content": "export function shouldPingPrefix(prefix: PrefixState): boolean { if (prefix.ttl_seconds === 3600 && prefix.policy === 'adaptive') return false; return prefix.idle_ms >= prefix.threshold_ms; }"
+    }
+  ],
+  "expected_references": ["src/keepalive/index.ts"],
+  "tags": ["edit", "file-read"]
+}

@@ -1,0 +1,39 @@
+{
+  "run_id": "glm-dry-run-smoke-3",
+  "generated_at": "2026-05-20T21:50:20.714Z",
+  "provider": "glm",
+  "dry_run": true,
+  "counts": {
+    "sessions": 3,
+    "turns": 3,
+    "blocks": 4,
+    "tool_calls": 0,
+    "referenced_candidates": 0
+  },
+  "scenarios": [
+    {
+      "scenario_id": "read-summarize-file",
+      "session_id": "glm-dry-run-smoke-3-read-summarize-file",
+      "turns": 1,
+      "blocks": 1,
+      "tool_calls": 0,
+      "referenced_candidates": 0
+    },
+    {
+      "scenario_id": "inspect-multiple-files",
+      "session_id": "glm-dry-run-smoke-3-inspect-multiple-files",
+      "turns": 1,
+      "blocks": 2,
+      "tool_calls": 0,
+      "referenced_candidates": 0
+    },
+    {
+      "scenario_id": "debug-failing-test",
+      "session_id": "glm-dry-run-smoke-3-debug-failing-test",
+      "turns": 1,
+      "blocks": 1,
+      "tool_calls": 0,
+      "referenced_candidates": 0
+    }
+  ]
+}

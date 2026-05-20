@@ -1,0 +1,25 @@
+{
+  "id": "multi-block-reference-and-negative",
+  "title": "Multi Block Reference And Negative",
+  "description": "Two relevant blocks and one distractor block exercise mixed positive and negative replay material.",
+  "prompt": "Use the CLI and report schema notes to describe the generated run layout. Do not use the unrelated pricing note.",
+  "workspace_files": [
+    {
+      "path": "scripts/sessions/run-agent-scenarios.ts",
+      "content": "The run-agent-scenarios CLI writes raw provider JSON, normalized replay JSON, and a report.json file under benchmark/runs/<timestamp> for each scripted scenario."
+    },
+    {
+      "path": "docs/report-schema.md",
+      "content": "The report schema counts sessions, assistant turns, prompt blocks, tool calls, and referenced candidate blocks detected from normalized replay records."
+    },
+    {
+      "path": "notes/unrelated-pricing.md",
+      "content": "This unrelated note discusses a future cache-cost benchmark and should not be treated as evidence for the trace generator output layout."
+    }
+  ],
+  "expected_references": [
+    "scripts/sessions/run-agent-scenarios.ts",
+    "docs/report-schema.md"
+  ],
+  "tags": ["multi-block", "true-negative"]
+}

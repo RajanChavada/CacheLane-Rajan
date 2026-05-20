@@ -1,0 +1,14 @@
+{
+  "id": "debug-failing-test",
+  "title": "Debug Failing Test",
+  "description": "A failing test transcript should be quoted or converted into a diagnosis.",
+  "prompt": "The corpus gate failed. Explain the most likely cause and name the fixture that needs review.",
+  "workspace_files": [
+    {
+      "path": "test-output/corpus-gate.txt",
+      "content": "FAIL corpus-014: expected referenced block block-config-a but detector returned none. Precision 100.0%, recall 96.4%, implicit-only recall below threshold for a quoted configuration paragraph."
+    }
+  ],
+  "expected_references": ["test-output/corpus-gate.txt"],
+  "tags": ["debug", "test-output"]
+}

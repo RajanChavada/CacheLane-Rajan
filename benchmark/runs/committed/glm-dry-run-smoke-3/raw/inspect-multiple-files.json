@@ -1,0 +1,41 @@
+{
+  "session_id": "glm-dry-run-smoke-3-inspect-multiple-files",
+  "provider": "glm",
+  "scenario_id": "inspect-multiple-files",
+  "started_at": "2026-05-20T21:50:20.713Z",
+  "ended_at": "2026-05-20T21:50:20.713Z",
+  "request_summary": {
+    "method": "POST",
+    "url": "https://api.z.ai/api/paas/v4/chat/completions",
+    "model": "glm-5.1",
+    "message_count": 2,
+    "tool_names": [
+      "read_file",
+      "list_files",
+      "run_command",
+      "edit_file"
+    ],
+    "stream": false
+  },
+  "turns": [
+    {
+      "assistant_text": "Dry run only. Planned GLM request for inspect-multiple-files.",
+      "prompt_blocks": [
+        {
+          "id": "f6cf1966f7eaf8899ed8d6d3f5b6d8ce098c0ba4df038eee12575186536131c9",
+          "id_token": "f6cf1966",
+          "kind": "file_read",
+          "file_path": "src/orchestrator/request-mutator.ts",
+          "content": "The request mutator walks sorted prompt regions, appends cache_control metadata at selected block boundaries, and preserves the original message content when no breakpoint is requested."
+        },
+        {
+          "id": "ff0d2bb51eb2dff68dac51c4ac8631e4ff880ed74ca7ac878bfea5f5125c40d6",
+          "id_token": "ff0d2bb5",
+          "kind": "file_read",
+          "file_path": "src/orchestrator/__tests__/request-mutator.test.ts",
+          "content": "The tests assert that the mutator places two cache_control markers for stable and semi-stable regions while leaving unrelated tool result payloads byte-identical."
+        }
+      ]
+    }
+  ]
+}

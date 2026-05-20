@@ -1,0 +1,29 @@
+{
+  "session_id": "fake-smoke-3-debug-failing-test",
+  "provider": "fake",
+  "scenario_id": "debug-failing-test",
+  "started_at": "2026-05-20T21:50:11.663Z",
+  "ended_at": "2026-05-20T21:50:11.663Z",
+  "turns": [
+    {
+      "assistant_text": "Scenario debug-failing-test: referenced test-output/corpus-gate.txt.\nFAIL corpus-014: expected referenced block block-config-a but detector returned none. Precision 100.0%, recall 96.4%, implicit-only recall below threshold for a",
+      "tool_calls": [
+        {
+          "name": "read_file",
+          "input": {
+            "path": "test-output/corpus-gate.txt"
+          }
+        }
+      ],
+      "prompt_blocks": [
+        {
+          "id": "721a3ac6aa855bcc7cc0a6169c8e8869ec1d71b54d0949b2bd1b64b2a62511a4",
+          "id_token": "721a3ac6",
+          "kind": "file_read",
+          "file_path": "test-output/corpus-gate.txt",
+          "content": "FAIL corpus-014: expected referenced block block-config-a but detector returned none. Precision 100.0%, recall 96.4%, implicit-only recall below threshold for a quoted configuration paragraph."
+        }
+      ]
+    }
+  ]
+}

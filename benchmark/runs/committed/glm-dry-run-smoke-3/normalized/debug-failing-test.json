@@ -1,0 +1,22 @@
+{
+  "session_id": "glm-dry-run-smoke-3-debug-failing-test",
+  "provider": "glm",
+  "scenario_id": "debug-failing-test",
+  "source": {},
+  "turns": [
+    {
+      "turn_number": 0,
+      "assistant_text": "Dry run only. Planned GLM request for debug-failing-test.",
+      "tool_calls": [],
+      "blocks_in_prompt": [
+        {
+          "id": "721a3ac6aa855bcc7cc0a6169c8e8869ec1d71b54d0949b2bd1b64b2a62511a4",
+          "id_token": "721a3ac6",
+          "kind": "file_read",
+          "file_path": "test-output/corpus-gate.txt",
+          "content": "FAIL corpus-014: expected referenced block block-config-a but detector returned none. Precision 100.0%, recall 96.4%, implicit-only recall below threshold for a quoted configuration paragraph."
+        }
+      ]
+    }
+  ]
+}

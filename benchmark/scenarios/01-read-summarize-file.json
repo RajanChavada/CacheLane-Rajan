@@ -1,0 +1,14 @@
+{
+  "id": "read-summarize-file",
+  "title": "Read And Summarize File",
+  "description": "A single file-read context block should be referenced by path and by a short content summary.",
+  "prompt": "Read src/cache-policy.ts and summarize the TTL behavior in two sentences.",
+  "workspace_files": [
+    {
+      "path": "src/cache-policy.ts",
+      "content": "export function ttlForPrefix(kind: 'ephemeral_5m' | 'ephemeral_1h'): number { return kind === 'ephemeral_1h' ? 3600 : 300; } The keepalive worker should avoid refreshing one hour prefixes unless the policy explicitly enables it."
+    }
+  ],
+  "expected_references": ["src/cache-policy.ts"],
+  "tags": ["read", "summarize"]
+}
