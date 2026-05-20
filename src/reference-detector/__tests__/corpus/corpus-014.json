@@ -1,0 +1,21 @@
+{
+  "id": "corpus-014",
+  "description": "Signal 3: matching shingle is at the end of the block content",
+  "detection_blocks": [
+    {
+      "id": "B_LOG",
+      "file_path": null,
+      "content": "build started at 09:00\nbuild completed successfully at 09:42"
+    }
+  ],
+  "assistant_message": {
+    "role": "assistant",
+    "content": [
+      { "type": "text", "text": "The log shows: build completed successfully at 09:42 — all good." }
+    ]
+  },
+  "ground_truth": {
+    "referenced_block_ids": ["B_LOG"],
+    "unreferenced_block_ids": []
+  }
+}

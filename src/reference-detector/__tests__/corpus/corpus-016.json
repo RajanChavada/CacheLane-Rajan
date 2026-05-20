@@ -1,0 +1,21 @@
+{
+  "id": "corpus-016",
+  "description": "Signal 3 edge: block content is 39 chars — below shingle threshold, not detectable via S3",
+  "detection_blocks": [
+    {
+      "id": "B_SHORT",
+      "file_path": null,
+      "content": "Error: undefined is not a function(42)"
+    }
+  ],
+  "assistant_message": {
+    "role": "assistant",
+    "content": [
+      { "type": "text", "text": "Error: undefined is not a function(42) was the error." }
+    ]
+  },
+  "ground_truth": {
+    "referenced_block_ids": [],
+    "unreferenced_block_ids": ["B_SHORT"]
+  }
+}

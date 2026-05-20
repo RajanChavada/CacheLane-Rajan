@@ -1,0 +1,18 @@
+{
+  "id": "corpus-019",
+  "description": "Signal 2 negative: block ID does not appear anywhere in assistant output",
+  "detection_blocks": [
+    { "id": "01JBLOCK_ABSENT", "file_path": null, "content": "npm install output: 142 packages added" }
+  ],
+  "assistant_message": {
+    "role": "assistant",
+    "content": [
+      { "type": "text", "text": "I've installed the dependencies. Now let me run the tests." },
+      { "type": "tool_use", "id": "t1", "name": "Bash", "input": { "command": "npm test" } }
+    ]
+  },
+  "ground_truth": {
+    "referenced_block_ids": [],
+    "unreferenced_block_ids": ["01JBLOCK_ABSENT"]
+  }
+}

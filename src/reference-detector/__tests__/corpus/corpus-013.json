@@ -1,0 +1,19 @@
+{
+  "id": "corpus-013",
+  "description": "True negative: assistant does unrelated work; no block is referenced",
+  "detection_blocks": [
+    { "id": "B_FILE_READ", "file_path": "src/config.ts", "content": "export const config = { db: 'postgres' }" },
+    { "id": "B_GREP_OUT", "file_path": null, "content": "grep -r 'authenticate' src/ found 3 matches in auth.py" }
+  ],
+  "assistant_message": {
+    "role": "assistant",
+    "content": [
+      { "type": "text", "text": "I will create a new test file for the parser module." },
+      { "type": "tool_use", "id": "t1", "name": "Write", "input": { "file_path": "tests/parser.test.ts", "content": "describe('parser', () => {})" } }
+    ]
+  },
+  "ground_truth": {
+    "referenced_block_ids": [],
+    "unreferenced_block_ids": ["B_FILE_READ", "B_GREP_OUT"]
+  }
+}

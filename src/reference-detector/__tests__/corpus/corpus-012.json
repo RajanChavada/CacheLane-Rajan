@@ -1,0 +1,19 @@
+{
+  "id": "corpus-012",
+  "description": "Signal 2: ID in text; separate tool call does not match; only one block referenced",
+  "detection_blocks": [
+    { "id": "01JBLOCK_MENTIONED", "file_path": null, "content": "search result data" },
+    { "id": "01JBLOCK_QUIET", "file_path": null, "content": "other search result" }
+  ],
+  "assistant_message": {
+    "role": "assistant",
+    "content": [
+      { "type": "text", "text": "Based on 01JBLOCK_MENTIONED, I can see the pattern." },
+      { "type": "tool_use", "id": "t1", "name": "Bash", "input": { "command": "echo done" } }
+    ]
+  },
+  "ground_truth": {
+    "referenced_block_ids": ["01JBLOCK_MENTIONED"],
+    "unreferenced_block_ids": ["01JBLOCK_QUIET"]
+  }
+}

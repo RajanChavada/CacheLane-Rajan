@@ -1,0 +1,17 @@
+{
+  "id": "corpus-001",
+  "description": "Signal 1: assistant reads a file whose block is tracked",
+  "detection_blocks": [
+    { "id": "B_AUTH", "file_path": "src/auth.py", "content": "def login(): pass" }
+  ],
+  "assistant_message": {
+    "role": "assistant",
+    "content": [
+      { "type": "tool_use", "id": "t1", "name": "Read", "input": { "file_path": "src/auth.py" } }
+    ]
+  },
+  "ground_truth": {
+    "referenced_block_ids": ["B_AUTH"],
+    "unreferenced_block_ids": []
+  }
+}

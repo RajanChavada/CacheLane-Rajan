@@ -1,0 +1,17 @@
+{
+  "id": "corpus-004",
+  "description": "Signal 2: assistant text contains the block ID",
+  "detection_blocks": [
+    { "id": "01JBLOCK000001", "file_path": null, "content": "grep output: no matches found" }
+  ],
+  "assistant_message": {
+    "role": "assistant",
+    "content": [
+      { "type": "text", "text": "As shown in block 01JBLOCK000001, there were no matches." }
+    ]
+  },
+  "ground_truth": {
+    "referenced_block_ids": ["01JBLOCK000001"],
+    "unreferenced_block_ids": []
+  }
+}

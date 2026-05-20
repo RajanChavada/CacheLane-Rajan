@@ -1,0 +1,22 @@
+{
+  "id": "corpus-011",
+  "description": "Signal 1: file_path nested inside tool input object still matches",
+  "detection_blocks": [
+    { "id": "B1", "file_path": "src/utils.ts", "content": "export const noop = () => {}" }
+  ],
+  "assistant_message": {
+    "role": "assistant",
+    "content": [
+      {
+        "type": "tool_use",
+        "id": "t1",
+        "name": "Edit",
+        "input": { "target": { "file": "src/utils.ts", "line": 3 }, "new_content": "..." }
+      }
+    ]
+  },
+  "ground_truth": {
+    "referenced_block_ids": ["B1"],
+    "unreferenced_block_ids": []
+  }
+}

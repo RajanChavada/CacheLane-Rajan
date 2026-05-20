@@ -263,6 +263,78 @@ describe("openDatabase", () => {
     expect(block!.updated_at).toBe(now + 3000);
   });
 
+  it("resetUnusedTurns sets counter to 0 and updates last_referenced_at_turn and updated_at", () => {
+    db = openDatabase(path.join(tmpDir, "test.db"));
+    const now = Date.now();
+
+    db.insertBlock({
+      id: "01HZXQ5K0000000000000020",
+      workspace_id: "ws-1",
+      session_id: "sess-1",
+      content_hash: "f".repeat(64),
+      kind: "file_read",
+      volatility: "SEMI",
+      is_pinned: false,
+      token_count: 300,
+      added_at_turn: 1,
+      last_referenced_at_turn: 1,
+      unused_turns: 2,
+      is_stub: false,
+      stub_summary: null,
+      refetch_handle: null,
+      created_at: now,
+      updated_at: now,
+    });
+
+    db.resetUnusedTurns("01HZXQ5K0000000000000020", 5, now + 1000);
+
+    const block = db.getBlock("01HZXQ5K0000000000000020");
+    expect(block!.unused_turns).toBe(0);
+    expect(block!.last_referenced_at_turn).toBe(5);
+    expect(block!.updated_at).toBe(now + 1000);
+  });
+
+  it("getBlocksBySession returns all blocks for a workspace+session", () => {
+    db = openDatabase(path.join(tmpDir, "test.db"));
+    const now = Date.now();
+
+    const makeBlock = (id: string, session: string) => ({
+      id,
+      workspace_id: "ws-1",
+      session_id: session,
+      content_hash: id.slice(0, 64).padEnd(64, "0"),
+      kind: "tool_output" as const,
+      volatility: "VOLATILE" as const,
+      is_pinned: false,
+      token_count: 100,
+      added_at_turn: 1,
+      last_referenced_at_turn: 1,
+      unused_turns: 0,
+      is_stub: false,
+      stub_summary: null,
+      refetch_handle: null,
+      created_at: now,
+      updated_at: now,
+    });
+
+    db.insertBlock(makeBlock("01BLOCK_S1_AAAAAAAAAAAAAAAAAAAAAAAAA", "sess-1"));
+    db.insertBlock(makeBlock("01BLOCK_S1_BBBBBBBBBBBBBBBBBBBBBBBBB", "sess-1"));
+    db.insertBlock(makeBlock("01BLOCK_S2_CCCCCCCCCCCCCCCCCCCCCCCCC", "sess-2"));
+
+    const rows = db.getBlocksBySession("ws-1", "sess-1");
+    expect(rows).toHaveLength(2);
+    const ids = rows.map((r) => r.id);
+    expect(ids).toContain("01BLOCK_S1_AAAAAAAAAAAAAAAAAAAAAAAAA");
+    expect(ids).toContain("01BLOCK_S1_BBBBBBBBBBBBBBBBBBBBBBBBB");
+    expect(ids).not.toContain("01BLOCK_S2_CCCCCCCCCCCCCCCCCCCCCCCCC");
+  });
+
+  it("getBlocksBySession returns empty array when no blocks for session", () => {
+    db = openDatabase(path.join(tmpDir, "test.db"));
+    const rows = db.getBlocksBySession("ws-99", "sess-99");
+    expect(rows).toEqual([]);
+  });
+
   it("insertBlockReference auto-assigns integer id and supports round-trip", () => {
     db = openDatabase(path.join(tmpDir, "test.db"));
     const now = Date.now();
