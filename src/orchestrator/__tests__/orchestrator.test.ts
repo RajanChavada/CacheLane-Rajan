@@ -101,6 +101,64 @@ describe("orchestrate (integration)", () => {
     const state = tracker.get("ws-1", "s-1");
     expect(state?.prefix_hash).toBe(out.prefix_hash);
     expect(state?.middle_hash).toBe(out.middle_hash);
+    expect(state?.prefix_token_count).toBeGreaterThan(0);
+    expect(state?.ttl_class).toBe("5m");
+  });
+
+  it("uses 1h prefix TTL when prefix token count reaches the large-prefix threshold", () => {
+    const input: OrchestratorInput = {
+      workspace_id: "ws-large-prefix",
+      session_id: "s-1",
+      current_turn: 1,
+      message_classifications: [cl("VOLATILE")],
+      original_request: baseRequest,
+    };
+    const tracker = new CacheStateTracker();
+    const out = orchestrate(input, tracker, {
+      policy: "auto",
+      interval_seconds: 150,
+      idle_threshold_seconds: 240,
+      large_prefix_threshold_tokens: 1,
+    });
+
+    expect(out.request.tools?.at(-1)?.cache_control).toEqual({
+      type: "ephemeral",
+      ttl: "1h",
+    });
+    const state = tracker.get("ws-large-prefix", "s-1");
+    expect(state?.ttl_class).toBe("1h");
+    expect(state?.expected_expiry_ms).toBeGreaterThan(
+      (state?.cached_at_ms ?? 0) + 3_500_000,
+    );
+  });
+
+  it("keeps orchestration active when prefix token serialization fails", () => {
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => undefined);
+    const circularSchema: Record<string, unknown> = { type: "object" };
+    circularSchema.self = circularSchema;
+    const request: AnthropicMessagesRequest = {
+      ...baseRequest,
+      tools: [{ name: "Circular", input_schema: circularSchema }],
+    };
+    const input: OrchestratorInput = {
+      workspace_id: "ws-circular-prefix",
+      session_id: "s-1",
+      current_turn: 1,
+      message_classifications: [cl("VOLATILE")],
+      original_request: request,
+    };
+    const tracker = new CacheStateTracker();
+
+    const out = orchestrate(input, tracker);
+
+    expect(out.mutated).toBe(true);
+    expect(out.signals).toContain("prefix_cached");
+    expect(tracker.get("ws-circular-prefix", "s-1")?.prefix_token_count).toBe(0);
+    expect(warn).toHaveBeenCalledWith(
+      "[cachelane] prefix token count unavailable",
+      expect.any(TypeError),
+    );
+    warn.mockRestore();
   });
 
   it("middle marker absent on turn 1, present on turn 2 with identical SEMI messages", () => {
