@@ -1,6 +1,6 @@
 {
   "name": "cachelane",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Cache-aware prompt orchestration for Claude Code",
   "license": "MIT",
   "type": "module",
