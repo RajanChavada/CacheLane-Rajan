@@ -1,33 +1,9 @@
-import { detectReferences } from "../reference-detector/index.js";
-import type { AssistantMessage, DetectionBlock } from "../reference-detector/types.js";
+import { detectReferences, type ReferenceTurn } from "../references/index.js";
 import type { AgentTraceTurn, NormalizedTraceSession, TraceRunReport } from "./types.js";
 
-function assistantMessageForTurn(turn: AgentTraceTurn): AssistantMessage {
-  return {
-    role: "assistant",
-    content: [
-      { type: "text", text: turn.assistant_text },
-      ...turn.tool_calls.map((call, index) => ({
-        type: "tool_use" as const,
-        id: `tool-${turn.turn_number}-${index}`,
-        name: call.name,
-        input: call.input,
-      })),
-    ],
-  };
-}
-
-function detectionBlocksForTurn(turn: AgentTraceTurn): DetectionBlock[] {
-  return turn.blocks_in_prompt.map((block) => ({
-    id: block.id,
-    content: block.content,
-    file_path: block.file_path ?? null,
-  }));
-}
-
 function referencedCandidatesForTurn(turn: AgentTraceTurn): number {
-  const result = detectReferences(detectionBlocksForTurn(turn), assistantMessageForTurn(turn));
-  return result.referenced_ids.size;
+  const result = detectReferences(turn as unknown as ReferenceTurn);
+  return result.size;
 }
 
 export function generateTraceReport(input: {
