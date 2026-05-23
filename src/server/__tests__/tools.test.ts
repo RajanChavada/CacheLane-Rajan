@@ -67,6 +67,7 @@ function insertBlock(id: string, overrides: Partial<Parameters<typeof db.insertB
     refetch_handle: "tool:read:src/auth.ts",
     created_at: now,
     updated_at: now,
+    restored_at_turn: null,
     ...overrides,
   });
 }
