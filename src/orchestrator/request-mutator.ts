@@ -24,6 +24,7 @@ export function mutateRequest(
   // ordering violations when CacheLane places a 1h prefix marker after them
   // (Anthropic rejects: 1h must not follow 5m in tools→system→messages order).
   const stripCc = <T extends { cache_control?: unknown }>(block: T): Omit<T, "cache_control"> => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { cache_control: _cc, ...rest } = block;
     return rest as Omit<T, "cache_control">;
   };
@@ -37,7 +38,7 @@ export function mutateRequest(
       if (typeof m.content === "string") return { ...m };
       return {
         ...m,
-        content: (m.content as AnthropicMessageContent[]).map((c) => ({ ...stripCc(c) })),
+        content: (m.content as AnthropicMessageContent[]).map((c) => ({ ...stripCc(c) })) as AnthropicMessageContent[],
       };
     }),
   };
