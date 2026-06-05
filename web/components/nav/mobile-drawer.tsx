@@ -33,7 +33,7 @@ export function MobileDrawer() {
     <>
       <button
         onClick={() => setOpen(true)}
-        className="inline-flex min-h-10 min-w-10 items-center justify-center rounded-md text-[var(--color-fg-muted)] hover:text-[var(--color-fg)] md:hidden"
+        className="inline-flex min-h-10 min-w-10 items-center justify-center rounded-md text-[var(--color-fg-muted)] hover:text-[var(--color-fg)] lg:hidden"
         aria-label="Open menu"
       >
         <Menu size={20} />
@@ -44,7 +44,7 @@ export function MobileDrawer() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 cursor-pointer bg-[var(--color-bg)]/80 backdrop-blur-sm md:hidden"
+            className="fixed inset-0 z-50 flex cursor-pointer bg-[var(--color-bg)]/80 backdrop-blur-sm lg:hidden"
             onClick={() => setOpen(false)}
           >
             <motion.aside
