@@ -452,6 +452,25 @@ export function createCachelaneCli(options: CliOptions = {}): Command {
     });
 
   program
+    .command("hook-mutate")
+    .description("Hook-based mutation engine for Claude Code (AWS Bedrock mode)")
+    .action(async () => {
+      const input = await readStdin();
+      if (input.trim().length === 0) return;
+      try {
+        const { handleHookMutate } = await import("./hook-mutate.js");
+        const parsed = JSON.parse(input) as Record<string, unknown>;
+        const result = await handleHookMutate(env, parsed);
+        if (result !== undefined) {
+          io.stdout(result);
+        }
+      } catch (err) {
+        // Fail open — log to stderr but don't break stdout
+        io.stderr(`[cachelane] hook-mutate error: ${err instanceof Error ? err.message : String(err)}\n`);
+      }
+    });
+
+  program
     .command("proxy")
     .description("Start HTTP proxy that intercepts Anthropic API calls and runs the CacheLane pipeline")
     .option("--port <number>", "Port to listen on (default: 7332)", (v) => parseInt(v, 10), 7332)

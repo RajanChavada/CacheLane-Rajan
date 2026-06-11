@@ -172,29 +172,30 @@ export function removeBaseUrlFromSettings(settingsPath: string): boolean {
 // Claude Code reads hooks from settings.json, not from ~/.claude/hooks/*.json.
 function mergeHooksIntoSettings(
   settingsPath: string,
-  hookCmd: (name: string) => string,
+  nodeExec: string,
+  cliScript: string,
 ): boolean {
   const settings = readJsonObject(settingsPath);
   const hooks: JsonObject = isObject(settings.hooks) ? { ...(settings.hooks as JsonObject) } : {};
 
   const entries = [
-    { event: "UserPromptSubmit", name: "user-prompt-submit" },
-    { event: "Stop", name: "stop" },
+    { event: "UserPromptSubmit", cmdName: "hook-mutate" },
+    { event: "Stop", cmdName: "hook stop" },
   ] as const;
 
   let changed = false;
 
-  for (const { event, name } of entries) {
-    const cmd = hookCmd(name);
+  for (const { event, cmdName } of entries) {
+    const cmd = `"${nodeExec}" "${cliScript}" ${cmdName}`;
     const existing: unknown[] = Array.isArray(hooks[event]) ? [...(hooks[event] as unknown[])] : [];
 
     // Remove stale cachelane entries (command path may have changed after rebuild).
-    // Detect by suffix: our commands always end with `hook <name>`.
+    // Detect by suffix: our commands always end with the specified cmdName.
     const filtered = existing.filter((g: unknown) => {
       if (!isObject(g) || !Array.isArray((g as JsonObject).hooks)) return true;
       return !((g as JsonObject).hooks as unknown[]).some(
         (h) => isObject(h) && typeof (h as JsonObject).command === "string" &&
-          ((h as JsonObject).command as string).endsWith(` hook ${name}`),
+          ((h as JsonObject).command as string).endsWith(` ${cmdName}`),
       );
     });
 
@@ -221,7 +222,7 @@ function removeHooksFromSettings(settingsPath: string): boolean {
   if (!isObject(settings.hooks)) return false;
 
   const hooks: JsonObject = { ...(settings.hooks as JsonObject) };
-  const OUR_HOOK_NAMES = ["user-prompt-submit", "stop"];
+  const OUR_HOOK_NAMES = ["hook-mutate", "hook stop", "hook user-prompt-submit"];
   let changed = false;
 
   for (const event of ["UserPromptSubmit", "Stop"]) {
@@ -231,7 +232,7 @@ function removeHooksFromSettings(settingsPath: string): boolean {
       if (!isObject(g) || !Array.isArray((g as JsonObject).hooks)) return true;
       return !((g as JsonObject).hooks as unknown[]).some(
         (h) => isObject(h) && typeof (h as JsonObject).command === "string" &&
-          OUR_HOOK_NAMES.some((n) => ((h as JsonObject).command as string).endsWith(` hook ${n}`)),
+          OUR_HOOK_NAMES.some((n) => ((h as JsonObject).command as string).endsWith(` ${n}`)),
       );
     });
 
@@ -306,15 +307,14 @@ export function installCachelane(env: NodeJS.ProcessEnv = process.env): InstallR
   //
   // Use absolute paths for node + script because hook subprocesses don't inherit
   // the user's shell PATH (e.g. fnm multishell paths are session-specific).
-  const hookCmd = (name: string) => `"${nodeExec}" "${cliScript}" hook ${name}`;
 
-  const settingsChanged = mergeHooksIntoSettings(settingsPath, hookCmd);
+  const settingsChanged = mergeHooksIntoSettings(settingsPath, nodeExec, cliScript);
   const upstreamChanged = mergeUpstreamFromSettingsIntoConfig(settingsPath, configPath, config);
   const urlChanged = mergeBaseUrlIntoSettings(settingsPath, config.proxy.port);
 
   // Marker file — used by `cachelane doctor` to confirm hooks are registered
   const markerContent = JSON.stringify(
-    { hooks: { UserPromptSubmit: ["user-prompt-submit"], Stop: ["stop"] } },
+    { hooks: { UserPromptSubmit: ["hook-mutate"], Stop: ["hook stop"] } },
     null,
     2,
   ) + "\n";
