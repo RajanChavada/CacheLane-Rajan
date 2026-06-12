@@ -68,10 +68,18 @@ export function materializePrunedBlocks<
       );
     }
 
-    message.content[placement.content_index] = {
-      type: "text",
-      text: formatStubText(decision),
-    };
+    const originalBlock = message.content[placement.content_index];
+    if (originalBlock && originalBlock.type === "tool_result") {
+      message.content[placement.content_index] = {
+        ...originalBlock,
+        content: formatStubText(decision),
+      };
+    } else {
+      message.content[placement.content_index] = {
+        type: "text",
+        text: formatStubText(decision),
+      };
+    }
   }
 
   return out;
