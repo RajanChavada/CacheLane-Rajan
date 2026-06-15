@@ -7,6 +7,8 @@
 >
 > CacheLane sits between Claude Code and `api.anthropic.com` and reorganizes each turn's prompt so Anthropic's prompt cache fires far more often, then prunes stale tool output. The result is **30–60% lower input-token cost** on long sessions — with **zero change to how you use Claude Code**.
 
+<video src="https://github.com/Aditya-Tripuraneni/CacheLane/raw/main/web/public/cachelane.mp4" width="100%" controls autoplay loop muted></video>
+
 ---
 
 ## Quickstart
