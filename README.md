@@ -320,6 +320,8 @@ Claude Code  ──►  CacheLane (:7332)  ──►  Other proxy (:8787)  ─�
 
 **Caveats when stacking two token-reduction layers:** they may overlap or interact (e.g. one stripping content the other expects to stub/refetch). Verify with `cachelane stats` that you're still seeing cache reads and reduction after chaining.
 
+**Verify the chain is healthy:** after wiring two proxies together, run `cachelane doctor --probe` to confirm CacheLane's configured upstream is reachable and that cache reads are still firing. If `cache_reads` warns that reads dropped to ~0, the other layer may be stripping content CacheLane needs to cache — see the caveats above.
+
 > Running a chain like this means *not* using the zero-config auto-proxy — you start `cachelane proxy` yourself and manage the `ANTHROPIC_BASE_URL` wiring manually.
 
 ---
