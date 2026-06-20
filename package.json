@@ -33,6 +33,7 @@
   },
   "devDependencies": {
     "@anthropic-ai/sdk": "^0.97.1",
+    "@tailwindcss/postcss": "^4.3.1",
     "@types/aws4": "^1.11.6",
     "@types/better-sqlite3": "^7.6.11",
     "@types/node": "^20.14.0",
@@ -40,6 +41,7 @@
     "@typescript-eslint/parser": "^8.0.0",
     "eslint": "^9.0.0",
     "eslint-plugin-import": "^2.29.0",
+    "tailwindcss": "^4.3.1",
     "tsup": "^8.0.0",
     "tsx": "^4.22.3",
     "typescript": "^5.4.0",
